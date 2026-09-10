@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical Scorecard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* ============================================================
+   Technical Scorecard — DuBois Chemicals
+   Palette: steel blue accent on a cool paper ground; weight
+   semantics (critical / very important / important) kept
+   separate from the accent so severity never reads as branding.
+   Type: Barlow Condensed (signage) + Barlow (body) + IBM Plex
+   Mono (all figures).
+   ============================================================ */
+
+:root{
+  color-scheme: light;
+
+  --ground:#eceff3;
+  --surface:#ffffff;
+  --surface-2:#f5f8fa;
+  --surface-3:#eaeff3;
+  --line:#d2dae1;
+  --line-strong:#aab8c4;
+  --ink:#0f1a22;
+  --ink-2:#3c4d5a;
+  --ink-3:#6a7c8a;
+
+  --accent:#0f5b8f;
+  --accent-hover:#0c4a76;
+  --accent-ink:#ffffff;
+  --accent-soft:#e0edf7;
+  --accent-line:#9cc4e2;
+
+  --w3:#b0271d;          /* Critical  ×3 */
+  --w3-soft:#fbe7e5;
+  --w2:#a3660b;          /* Very important ×2 */
+  --w2-soft:#fcefda;
+  --w1:#5a6b78;          /* Important ×1 */
+  --w1-soft:#e9eef2;
+
+  --good:#1a7347;
+  --good-soft:#e0f1e8;
+
+  --focus:#0f5b8f;
+  --shadow:0 1px 2px rgba(15,26,34,.06), 0 6px 18px rgba(15,26,34,.06);
+
+  --sans:"Barlow", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --cond:"Barlow Condensed", "Barlow", ui-sans-serif, system-ui, "Arial Narrow", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --grid: minmax(190px, 1.25fr) repeat(4, minmax(0, 1fr)) 96px;
+  --gutter: 20px;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0c1318;
+    --surface:#141d24;
+    --surface-2:#19242c;
+    --surface-3:#1f2c35;
+    --line:#2b3841;
+    --line-strong:#42525d;
+    --ink:#e9eff4;
+    --ink-2:#b2c1cc;
+    --ink-3:#8295a3;
+
+    --accent:#4ea6e2;
+    --accent-hover:#71bcef;
+    --accent-ink:#07161f;
+    --accent-soft:#12303f;
+    --accent-line:#2f6285;
+
+    --w3:#ef8b81;
+    --w3-soft:#3a1c19;
+    --w2:#e0a94f;
+    --w2-soft:#372814;
+    --w1:#94a4b1;
+    --w1-soft:#1d272e;
+
+    --good:#5cc48c;
+    --good-soft:#123024;
+
+    --focus:#71bcef;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.32);
+  }
+}
+
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0c1318;
+  --surface:#141d24;
+  --surface-2:#19242c;
+  --surface-3:#1f2c35;
+  --line:#2b3841;
+  --line-strong:#42525d;
+  --ink:#e9eff4;
+  --ink-2:#b2c1cc;
+  --ink-3:#8295a3;
+
+  --accent:#4ea6e2;
+  --accent-hover:#71bcef;
+  --accent-ink:#07161f;
+  --accent-soft:#12303f;
+  --accent-line:#2f6285;
+
+  --w3:#ef8b81;
+  --w3-soft:#3a1c19;
+  --w2:#e0a94f;
+  --w2-soft:#372814;
+  --w1:#94a4b1;
+  --w1-soft:#1d272e;
+
+  --good:#5cc48c;
+  --good-soft:#123024;
+
+  --focus:#71bcef;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.32);
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+
+.wrap{
+  max-width:1180px;
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+  padding-block:0 56px;
+}
+
+h1,h2,h3{ margin:0; text-wrap:balance; }
+
+.eyebrow{
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:12px;
+  color:var(--ink-3);
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  border-bottom:1px solid var(--line);
+  background:var(--surface);
+}
+.masthead-inner{
+  max-width:1180px;
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+  padding-block:22px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  gap:16px 28px;
+}
+.wordmark{
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:13px;
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.wordmark::before{
+  content:"";
+  width:4px; height:18px;
+  background:var(--accent);
+  display:block;
+}
+h1{
+  font-family:var(--cond);
+  font-weight:700;
+  font-size:clamp(28px, 4.4vw, 42px);
+  line-height:1.02;
+  letter-spacing:.005em;
+  text-transform:uppercase;
+}
+h1 .subtitle{
+  display:block;
+  font-family:var(--sans);
+  font-weight:500;
+  font-style:italic;
+  text-transform:none;
+  letter-spacing:0;
+  font-size:clamp(14px, 1.7vw, 17px);
+  color:var(--ink-2);
+  margin-top:6px;
+}
+.masthead-actions{
+  margin-left:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:7px;
+}
+.action-row{ display:flex; gap:8px; flex-wrap:wrap; }
+
+/* ---------- buttons ---------- */
+button{ font:inherit; }
+.btn{
+  font-family:var(--cond);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:14px;
+  padding:9px 15px;
+  border-radius:3px;
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  color:var(--ink-2);
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn:hover{ background:var(--surface-3); color:var(--ink); }
+.btn-primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:var(--accent-ink);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-primary:hover{ background:var(--accent-hover); border-color:var(--accent-hover); color:var(--accent-ink); }
+.btn-primary svg{ width:15px; height:15px; flex:none; }
+.hint{ font-size:12px; color:var(--ink-3); }
+
+:where(a,button,input,select,textarea,label,[tabindex]):focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:2px;
+  border-radius:2px;
+}
+
+/* ---------- notice ---------- */
+.notice{
+  display:none;
+  align-items:center;
+  gap:12px;
+  margin-top:18px;
+  padding:10px 14px;
+  border:1px solid var(--w2);
+  border-left-width:4px;
+  background:var(--w2-soft);
+  color:var(--ink);
+  font-size:14px;
+  border-radius:3px;
+}
+.notice.is-on{ display:flex; }
+.notice strong{ font-weight:600; }
+.notice button{
+  margin-left:auto;
+  border:0; background:none; cursor:pointer;
+  color:var(--ink-2); font-size:13px; text-decoration:underline;
+  padding:2px 4px;
+}
+
+/* ---------- section shell ---------- */
+section{ margin-top:34px; }
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.sec-head h2{
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:19px;
+}
+.sec-head .note{ font-size:13px; color:var(--ink-3); }
+
+.panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:4px;
+}
+
+/* ---------- audit header fields ---------- */
+.meta{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+  gap:0;
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:4px;
+  overflow:hidden;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  padding:12px 16px 13px;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  min-width:0;
+}
+.field label{
+  font-family:var(--cond);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  font-size:11.5px;
+  color:var(--ink-3);
+}
+.field input{
+  font:inherit;
+  font-weight:500;
+  color:var(--ink);
+  background:transparent;
+  border:0;
+  border-bottom:1px solid var(--line-strong);
+  padding:3px 0 4px;
+  width:100%;
+  min-width:0;
+  border-radius:0;
+}
+.field input::placeholder{ color:var(--ink-3); opacity:.7; font-weight:400; }
+.field input:focus{ outline:none; border-bottom-color:var(--accent); box-shadow:0 1px 0 0 var(--accent); }
+
+.objective{
+  margin-top:14px;
+  font-size:14.5px;
+  color:var(--ink-2);
+  border-left:3px solid var(--accent-line);
+  padding-left:12px;
+}
+.objective b{ color:var(--ink); font-weight:600; }
+
+/* ---------- sticky summary ---------- */
+.summary{
+  position:sticky;
+  top:0;
+  z-index:20;
+  margin-top:30px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:4px;
+  box-shadow:var(--shadow);
+  padding:14px 18px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:18px 24px;
+}
+.total{
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+}
+.total .num{
+  font-family:var(--mono);
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  font-size:44px;
+  line-height:.95;
+  color:var(--ink);
+  letter-spacing:-.02em;
+}
+.total .den{
+  font-family:var(--mono);
+  font-size:17px;
+  color:var(--ink-3);
+  font-variant-numeric:tabular-nums;
+}
+.total .cap{
+  font-family:var(--cond);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-size:11px;
+  color:var(--ink-3);
+  display:block;
+  margin-bottom:4px;
+}
+
+.meter-wrap{ min-width:180px; }
+.meter{
+  position:relative;
+  height:10px;
+  background:var(--surface-3);
+  border:1px solid var(--line);
+  border-radius:2px;
+  overflow:hidden;
+}
+.meter-fill{
+  position:absolute;
+  inset:0 auto 0 0;
+  width:0%;
+  background:var(--tier-color, var(--accent));
+  transition:width .25s ease, background-color .25s ease;
+}
+.meter-ticks{
+  position:relative;
+  height:16px;
+  margin-top:3px;
+}
+.meter-ticks span{
+  position:absolute;
+  transform:translateX(-50%);
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--ink-3);
+  white-space:nowrap;
+}
+.meter-ticks span::before{
+  content:"";
+  position:absolute;
+  left:50%; top:-4px;
+  width:1px; height:3px;
+  background:var(--line-strong);
+}
+.meter-legend{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--ink-3);
+  margin-top:1px;
+}
+
+.tier-box{ text-align:right; }
+.tier-chip{
+  display:inline-flex;
+  align-items:baseline;
+  gap:8px;
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:16px;
+  padding:6px 13px;
+  border-radius:3px;
+  border:1px solid var(--tier-color, var(--line-strong));
+  background:var(--tier-soft, var(--surface-2));
+  color:var(--tier-color, var(--ink-2));
+}
+.tier-chip .range{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:12px;
+  letter-spacing:0;
+  color:var(--ink-2);
+}
+.progress-note{
+  font-size:12px;
+  color:var(--ink-3);
+  margin-top:6px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- weighting legend ---------- */
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 10px;
+  align-items:center;
+}
+.wchip{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:12.5px;
+  color:var(--ink-2);
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:2px;
+  padding:3px 9px 3px 6px;
+}
+.wchip i{
+  width:4px;
+  align-self:stretch;
+  min-height:14px;
+  background:var(--c);
+  display:block;
+}
+.wchip b{
+  font-family:var(--mono);
+  font-weight:600;
+  color:var(--c);
+  font-size:12px;
+}
+
+/* ---------- scorecard matrix ---------- */
+.matrix{ margin-top:14px; }
+.matrix-scroll{ overflow-x:auto; }
+.matrix-inner{ min-width:820px; }
+
+.mrow{
+  display:grid;
+  grid-template-columns:var(--grid);
+  gap:0;
+}
+
+.mhead{
+  position:sticky;
+  top:0;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-bottom-width:2px;
+  border-radius:4px 4px 0 0;
+}
+.mhead > *{
+  padding:9px 12px;
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  font-size:11.5px;
+  color:var(--ink-3);
+  border-left:1px solid var(--line);
+}
+.mhead > *:first-child{ border-left:0; }
+.mhead .lvl{ text-align:center; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--ink-2); }
+.mhead .lvl small{ display:block; font-family:var(--sans); font-weight:500; font-size:10px; letter-spacing:.06em; color:var(--ink-3); }
+.mhead .sc{ text-align:right; }
+
+.metric{
+  border:1px solid var(--line);
+  border-top:0;
+  margin:0;
+  padding:0;
+  background:var(--surface);
+  position:relative;
+}
+.metric:last-of-type{ border-radius:0 0 4px 4px; }
+.metric > .mrow{ min-height:100%; }
+.metric legend{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); padding:0; }
+
+.m-name{
+  padding:12px 14px 13px 16px;
+  border-left:4px solid var(--c);
+  background:var(--c-soft);
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  min-width:0;
+}
+.m-name .id{
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:12px;
+  color:var(--c);
+}
+.m-name .t{
+  font-weight:600;
+  font-size:14px;
+  line-height:1.28;
+  color:var(--ink);
+}
+.m-name .w{
+  font-family:var(--cond);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:10.5px;
+  color:var(--c);
+  margin-top:auto;
+}
+
+.opt{
+  display:block;
+  border-left:1px solid var(--line);
+  padding:11px 12px 12px;
+  cursor:pointer;
+  font-size:13px;
+  line-height:1.36;
+  color:var(--ink-2);
+  position:relative;
+  transition:background .13s ease, color .13s ease;
+  min-width:0;
+}
+.opt input{
+  position:absolute;
+  opacity:0;
+  width:1px; height:1px;
+  margin:0;
+  pointer-events:none;
+}
+.opt .n{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:19px; height:19px;
+  border:1px solid var(--line-strong);
+  border-radius:2px;
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:11.5px;
+  color:var(--ink-3);
+  background:var(--surface);
+  margin:0 7px 0 0;
+  vertical-align:-4px;
+  transition:background .13s ease, color .13s ease, border-color .13s ease;
+}
+.opt:hover{ background:var(--surface-2); color:var(--ink); }
+.opt:hover .n{ border-color:var(--ink-3); }
+.opt.is-checked,
+.opt:has(input:checked){
+  background:var(--accent-soft);
+  color:var(--ink);
+  box-shadow:inset 0 0 0 2px var(--accent);
+}
+.opt.is-checked .n,
+.opt:has(input:checked) .n{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:var(--accent-ink);
+}
+.opt:has(input:focus-visible){ outline:2px solid var(--focus); outline-offset:-2px; }
+
+.m-score{
+  border-left:1px solid var(--line);
+  padding:11px 14px 12px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:center;
+  gap:2px;
+  background:var(--surface-2);
+  min-width:0;
+}
+.m-score .pts{
+  font-family:var(--mono);
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  font-size:22px;
+  line-height:1;
+  color:var(--ink-3);
+}
+.metric.is-scored .m-score .pts{ color:var(--ink); }
+.m-score .calc{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--ink-3);
+  white-space:nowrap;
+}
+.m-score .clear{
+  border:0;
+  background:none;
+  padding:2px 0 0;
+  font-size:10.5px;
+  color:var(--ink-3);
+  text-decoration:underline;
+  cursor:pointer;
+  visibility:hidden;
+}
+.metric.is-scored .m-score .clear{ visibility:visible; }
+.m-score .clear:hover{ color:var(--accent); }
+
+.mfoot{
+  display:grid;
+  grid-template-columns:var(--grid);
+  border:1px solid var(--line);
+  border-top:0;
+  border-radius:0 0 4px 4px;
+  background:var(--surface-2);
+  margin-top:-1px;
+}
+.mfoot .lbl{
+  grid-column:1 / 6;
+  padding:12px 16px;
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-size:13px;
+  color:var(--ink-2);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  text-align:right;
+}
+.mfoot .val{
+  border-left:1px solid var(--line);
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  font-family:var(--mono);
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  font-size:22px;
+  color:var(--ink);
+  background:var(--surface-3);
+}
+
+/* ---------- notes ---------- */
+.notes{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+  gap:14px;
+}
+.note-block{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:3px solid var(--c, var(--line-strong));
+  border-radius:3px;
+  padding:11px 14px 12px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.note-block label{
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:12.5px;
+  color:var(--ink-2);
+  display:flex;
+  align-items:baseline;
+  gap:7px;
+}
+.note-block label .id{ font-family:var(--mono); font-size:11px; color:var(--c, var(--ink-3)); letter-spacing:0; }
+.note-block textarea{
+  font:inherit;
+  font-size:14px;
+  color:var(--ink);
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:2px;
+  padding:8px 10px;
+  resize:vertical;
+  min-height:74px;
+  overflow:hidden;
+  width:100%;
+  line-height:1.45;
+}
+.note-block textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft); }
+.note-block textarea::placeholder{ color:var(--ink-3); opacity:.75; }
+.note-block.recommend{
+  grid-column:1 / -1;
+  border-left-color:var(--accent);
+  background:var(--surface);
+}
+.note-block.recommend textarea{ min-height:106px; }
+
+/* ---------- recommended actions ---------- */
+.tiers{
+  display:grid;
+  align-items:start;
+  grid-template-columns:repeat(auto-fit, minmax(268px, 1fr));
+  gap:14px;
+}
+.tier{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-top:3px solid var(--line-strong);
+  border-radius:3px;
+  padding:14px 16px 16px;
+  opacity:.62;
+  transition:opacity .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.tier.is-active{
+  opacity:1;
+  border-color:var(--c);
+  border-top-color:var(--c);
+  box-shadow:var(--shadow);
+}
+.tier-h{
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-bottom:9px;
+}
+.tier-h h3{
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:16px;
+  color:var(--c);
+}
+.tier-h .range{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--ink-3);
+  font-variant-numeric:tabular-nums;
+}
+.tier-h .you{
+  display:none;
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:10.5px;
+  color:var(--accent-ink);
+  background:var(--c);
+  padding:2px 8px;
+  border-radius:2px;
+}
+.tier.is-active .tier-h .you{ display:block; }
+.tier ul{ margin:0; padding-left:17px; display:flex; flex-direction:column; gap:6px; }
+.tier li{ font-size:13.5px; line-height:1.42; color:var(--ink-2); }
+.tier.is-active li{ color:var(--ink); }
+
+/* ---------- footer ---------- */
+.doc-foot{
+  margin-top:38px;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  align-items:baseline;
+  font-size:12.5px;
+  color:var(--ink-3);
+}
+.doc-foot .brand{
+  font-family:var(--cond);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--ink-2);
+}
+.autosave{ margin-left:auto; font-variant-numeric:tabular-nums; }
+
+.print-only{ display:none; }
+
+/* ---------- responsive ---------- */
+@media screen and (max-width:900px){
+  .summary{
+    grid-template-columns:1fr;
+    gap:14px;
+    padding:13px 15px;
+  }
+  .tier-box{ text-align:left; }
+  .masthead-actions{ margin-left:0; align-items:flex-start; width:100%; }
+  .matrix-inner{ min-width:0; }
+  .mhead{ display:none; }
+  .metric{ border-top:1px solid var(--line); border-radius:4px; margin-bottom:12px; }
+  .metric:last-of-type{ border-radius:4px; }
+  .metric > .mrow{ grid-template-columns:1fr; }
+  .m-name{ border-left-width:5px; }
+  .opt{
+    border-left:4px solid transparent;
+    border-top:1px solid var(--line);
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .opt .n{ margin:0; flex:none; }
+  .opt.is-checked,
+  .opt:has(input:checked){ border-left-color:var(--accent); box-shadow:none; }
+  .m-score{
+    border-left:0;
+    border-top:1px solid var(--line);
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .m-score .pts{ font-size:19px; }
+  .mfoot{ grid-template-columns:1fr auto; border-top:1px solid var(--line); border-radius:4px; margin-top:0; }
+  .mfoot .lbl{ grid-column:1; font-size:12px; text-align:left; justify-content:flex-start; }
+  .field{ border-right:0; }
+}
+
+@media screen and (max-width:520px){
+  :root{ --gutter:14px; }
+  .total .num{ font-size:36px; }
+  .field{ padding:10px 13px 11px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
+}
+
+/* ============================================================
+   PRINT — the "Export to PDF" output.
+   Portrait Letter, light palette forced, matrix preserved with
+   the chosen level boxed so the sheet reads in black & white.
+   ============================================================ */
+@media print{
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]){
+    color-scheme: light;
+    --ground:#ffffff;
+    --surface:#ffffff;
+    --surface-2:#ffffff;
+    --surface-3:#f2f2f2;
+    --line:#9aa4ac;
+    --line-strong:#6b7780;
+    --ink:#000000;
+    --ink-2:#20282e;
+    --ink-3:#4c565e;
+    --accent:#0f5b8f;
+    --accent-ink:#ffffff;
+    --accent-soft:#e4eff8;
+    --accent-line:#0f5b8f;
+    --w3:#a8231a; --w3-soft:#fbe7e5;
+    --w2:#8f5a09; --w2-soft:#fcefda;
+    --w1:#4c565e; --w1-soft:#f0f2f4;
+    --good:#166b41; --good-soft:#e2f2e9;
+    --shadow:none;
+    --grid: 1.25fr repeat(4, 1fr) 0.55fr;
+  }
+
+  @page{ size: letter portrait; margin: 12mm 11mm 11mm; }
+
+  html, body{ background:#fff; }
+  body{ font-size:8.6pt; line-height:1.28; }
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+
+  .wrap{ max-width:none; padding:0; }
+  .no-print, .masthead-actions, .notice, .hint, .m-score .clear, .autosave{ display:none !important; }
+  .print-only{ display:block; }
+
+  .masthead{ border-bottom:1.5pt solid #000; background:none; }
+  .masthead-inner{ padding:0 0 6pt; max-width:none; gap:4pt 16pt; }
+  h1{ font-size:19pt; }
+  h1 .subtitle{ font-size:9pt; margin-top:2pt; }
+  .wordmark{ font-size:9pt; }
+
+  section{ margin-top:11pt; }
+  .sec-head{ margin-bottom:5pt; }
+  .sec-head h2{ font-size:11pt; }
+  .sec-head .note{ font-size:7.6pt; }
+
+  .meta{ border-color:#000; grid-template-columns:repeat(4, minmax(0, 1fr)); }
+  input[type="date"]::-webkit-calendar-picker-indicator{ display:none; }
+  .field{ padding:4pt 7pt 5pt; border-color:#9aa4ac; }
+  .field label{ font-size:7pt; }
+  .field input{ font-size:9pt; border-bottom:.5pt solid #9aa4ac; padding:0 0 1pt; }
+  .objective{ margin-top:6pt; font-size:8.4pt; }
+
+  .summary{
+    position:static;
+    box-shadow:none;
+    border:1.2pt solid #000;
+    padding:7pt 10pt;
+    margin-top:9pt;
+    break-inside:avoid;
+  }
+  .total .num{ font-size:26pt; }
+  .total .den{ font-size:11pt; }
+  .meter{ height:6pt; }
+  .tier-chip{ font-size:11pt; padding:3pt 8pt; border-width:1pt; }
+
+  .matrix-scroll{ overflow:visible; }
+  .matrix-inner{ min-width:0; }
+  .mhead{ position:static; display:grid; break-inside:avoid; border-color:#000; }
+  .mhead > *{ padding:3pt 5pt; font-size:7pt; }
+  .metric{ break-inside:avoid; border-color:#9aa4ac; }
+  .m-name{ padding:4pt 5pt 4pt 6pt; gap:2pt; border-left-width:3pt; }
+  .m-name .id{ font-size:7.4pt; }
+  .m-name .t{ font-size:8.2pt; line-height:1.2; }
+  .m-name .w{ font-size:6.8pt; }
+  .opt{ padding:4pt 5pt; font-size:7.4pt; line-height:1.24; color:#4c565e; box-shadow:none; }
+  .opt .n{ width:11pt; height:11pt; font-size:7pt; margin-right:3pt; }
+  .opt.is-checked,
+  .opt:has(input:checked){
+    background:var(--accent-soft);
+    color:#000;
+    box-shadow:inset 0 0 0 1.6pt #0f5b8f;
+    font-weight:500;
+  }
+  .m-score{ padding:4pt 5pt; }
+  .m-score .pts{ font-size:13pt; }
+  .m-score .calc{ font-size:6.6pt; }
+  .mfoot{ break-inside:avoid; }
+  .mfoot .lbl{ padding:5pt 8pt; font-size:9pt; }
+  .mfoot .val{ font-size:14pt; padding:4pt 7pt; }
+  .legend{ gap:4pt 6pt; }
+  .wchip{ font-size:7.4pt; padding:1pt 5pt 1pt 3pt; }
+
+  .notes{ gap:6pt; grid-template-columns:1fr 1fr; }
+  .note-block{ break-inside:avoid; padding:4pt 7pt 5pt; gap:2pt; }
+  .note-block label{ font-size:8pt; }
+  .note-block textarea{
+    font-size:8.2pt;
+    min-height:0;
+    padding:3pt 4pt;
+    background:#fff;
+    border:.5pt solid #9aa4ac;
+    resize:none;
+    overflow:hidden;
+    line-height:1.3;
+  }
+
+  .tiers{ gap:6pt; grid-template-columns:1fr 1fr; }
+  .tier{ break-inside:avoid; opacity:1; padding:6pt 8pt 7pt; border-top-width:2pt; }
+  .tier:not(.is-active){ opacity:.72; }
+  .tier.is-active{ border-width:1pt; border-top-width:2.5pt; }
+  .tier-h{ margin-bottom:4pt; }
+  .tier-h h3{ font-size:10pt; }
+  .tier-h .range{ font-size:7.6pt; }
+  .tier li{ font-size:7.6pt; line-height:1.26; }
+
+  .page-break{ break-before:page; }
+
+  .doc-foot{ margin-top:10pt; padding-top:5pt; font-size:7.4pt; border-top:.75pt solid #9aa4ac; }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <div class="wordmark">DuBois Chemicals</div>
+      <h1>Technical Scorecard
+        <span class="subtitle">Fact finding, not fault finding</span>
+      </h1>
+    </div>
+    <div class="masthead-actions no-print">
+      <div class="action-row">
+        <button type="button" class="btn" id="sampleBtn">Fill sample data</button>
+        <button type="button" class="btn" id="clearBtn">Clear form</button>
+        <button type="button" class="btn btn-primary" id="pdfBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12"></path><path d="m7 11 5 5 5-5"></path><path d="M4 20h16"></path>
+          </svg>
+          Export to PDF
+        </button>
+      </div>
+      <p class="hint">Opens your browser's print dialog — choose <b>Save as PDF</b> as the destination.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="notice no-print" id="sampleNotice" role="status">
+    <span><strong>Sample data loaded.</strong> Clear the form before recording a real site audit.</span>
+    <button type="button" id="noticeClear">Clear it now</button>
+  </div>
+
+  <!-- ===== Audit header ===== -->
+  <section aria-labelledby="visit-h" style="margin-top:26px;">
+    <div class="sec-head">
+      <h2 id="visit-h">Visit Details</h2>
+    </div>
+    <div class="meta">
+      <div class="field">
+        <label for="f-customer">Customer</label>
+        <input type="text" id="f-customer" name="customer" placeholder="Site / account name" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-date">Date</label>
+        <input type="date" id="f-date" name="auditDate">
+      </div>
+      <div class="field">
+        <label for="f-attendees">Attendees</label>
+        <input type="text" id="f-attendees" name="attendees" placeholder="Names and roles on site" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-rep">DuBois Rep</label>
+        <input type="text" id="f-rep" name="rep" placeholder="Completed by" autocomplete="off">
+      </div>
+    </div>
+    <p class="objective"><b>Objective:</b> Audit customer site to evaluate technology &amp; value.</p>
+  </section>
+
+  <!-- ===== Live summary ===== -->
+  <div class="summary" id="summary" role="region" aria-label="Weighted score summary">
+    <div class="total">
+      <div>
+        <span class="cap">Total weighted score</span>
+        <span class="num" id="totalNum">0</span>
+        <span class="den">/ 45</span>
+      </div>
+    </div>
+
+    <div class="meter-wrap" aria-hidden="true">
+      <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+      <div class="meter-ticks">
+        <span style="left:33.33%">15</span>
+        <span style="left:55.56%">25</span>
+        <span style="left:77.78%">35</span>
+      </div>
+      <div class="meter-legend"><span>0</span><span>45</span></div>
+    </div>
+
+    <div class="tier-box">
+      <span class="tier-chip" id="tierChip">Tier 1 <span class="range">&lt;15</span></span>
+      <div class="progress-note" id="progressNote">0 of 8 metrics scored</div>
+    </div>
+  </div>
+
+  <!-- ===== Scorecard matrix ===== -->
+  <section aria-labelledby="matrix-h">
+    <div class="sec-head">
+      <h2 id="matrix-h">Scorecard</h2>
+      <span class="note no-print">Click the description that matches what you saw on site. Weighting is applied automatically.</span>
+    </div>
+
+    <div class="legend" style="margin-bottom:12px;">
+      <span class="wchip" style="--c:var(--w3)"><i></i><b>×3</b> Critical</span>
+      <span class="wchip" style="--c:var(--w2)"><i></i><b>×2</b> Very important</span>
+      <span class="wchip" style="--c:var(--w1)"><i></i><b>×1</b> Important</span>
+    </div>
+
+    <div class="matrix-scroll">
+      <div class="matrix-inner">
+
+        <div class="mrow mhead" aria-hidden="true">
+          <div>Metric</div>
+          <div class="lvl">0</div>
+          <div class="lvl">1</div>
+          <div class="lvl">2</div>
+          <div class="lvl">3</div>
+          <div class="sc">Weighted</div>
+        </div>
+
+        <!-- A -->
+        <fieldset class="metric" data-metric="A" data-weight="2" style="--c:var(--w2); --c-soft:var(--w2-soft)">
+          <legend>A. Dosing, Metering and Treatment Equipment — weighted ×2</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">A</span>
+              <span class="t">Dosing, Metering and Treatment Equipment</span>
+              <span class="w">×2 Very important</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-A" value="0"><span class="n">0</span>Missing key equipment</label>
+            <label class="opt"><input type="radio" name="score-A" value="1"><span class="n">1</span>Basic equipment in place. (Boiler softeners, automated bleed/blowdown)</label>
+            <label class="opt"><input type="radio" name="score-A" value="2"><span class="n">2</span>Properly sized and correct equipment is in place with some redundancy. Some room for improvement.</label>
+            <label class="opt"><input type="radio" name="score-A" value="3"><span class="n">3</span>All recommended equipment in place. (ORP, PTSA, Bleed/Blowdown, modern controllers, Ethernet Connection, Pre-treatment equipment)</label>
+            <div class="m-score">
+              <output class="pts" for="score-A">—</output>
+              <span class="calc">×2</span>
+              <button type="button" class="clear" data-clear="A">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- B -->
+        <fieldset class="metric" data-metric="B" data-weight="2" style="--c:var(--w2); --c-soft:var(--w2-soft)">
+          <legend>B. Program Automation — weighted ×2</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">B</span>
+              <span class="t">Program Automation</span>
+              <span class="w">×2 Very important</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-B" value="0"><span class="n">0</span>No automation</label>
+            <label class="opt"><input type="radio" name="score-B" value="1"><span class="n">1</span>Basic automation (timers, bleed &amp; feed)</label>
+            <label class="opt"><input type="radio" name="score-B" value="2"><span class="n">2</span>Load proportional automation. Some alarming and datalogging.</label>
+            <label class="opt"><input type="radio" name="score-B" value="3"><span class="n">3</span>High level of automation with web-enabled datalogging and alarming</label>
+            <div class="m-score">
+              <output class="pts" for="score-B">—</output>
+              <span class="calc">×2</span>
+              <button type="button" class="clear" data-clear="B">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- C -->
+        <fieldset class="metric" data-metric="C" data-weight="3" style="--c:var(--w3); --c-soft:var(--w3-soft)">
+          <legend>C. Chemical Handling &amp; Safety — weighted ×3</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">C</span>
+              <span class="t">Chemical Handling &amp; Safety</span>
+              <span class="w">×3 Critical</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-C" value="0"><span class="n">0</span>Empty drums/pails. Leaks, spills and residue.</label>
+            <label class="opt"><input type="radio" name="score-C" value="1"><span class="n">1</span>On-site mixing and handling. Drums in poor locations with no spill containment.</label>
+            <label class="opt"><input type="radio" name="score-C" value="2"><span class="n">2</span>Direct from shipping container. Easy to access and change containers. Spill containment.</label>
+            <label class="opt"><input type="radio" name="score-C" value="3"><span class="n">3</span>Demand Delivery Program.</label>
+            <div class="m-score">
+              <output class="pts" for="score-C">—</output>
+              <span class="calc">×3</span>
+              <button type="button" class="clear" data-clear="C">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- D -->
+        <fieldset class="metric" data-metric="D" data-weight="2" style="--c:var(--w2); --c-soft:var(--w2-soft)">
+          <legend>D. On-site Engagement in the program — weighted ×2</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">D</span>
+              <span class="t">On-site Engagement in the program</span>
+              <span class="w">×2 Very important</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-D" value="0"><span class="n">0</span>No local support of the program.</label>
+            <label class="opt"><input type="radio" name="score-D" value="1"><span class="n">1</span>Minimal local support of program. Occasional testing.</label>
+            <label class="opt"><input type="radio" name="score-D" value="2"><span class="n">2</span>General local support of the program with some resistance. Daily chemical testing logbook entries.</label>
+            <label class="opt"><input type="radio" name="score-D" value="3"><span class="n">3</span>Full local support and engagement in all aspects of the program, including onsite testing and continuous improvement. Daily testing and online logbook entries. At least 2 product lines.</label>
+            <div class="m-score">
+              <output class="pts" for="score-D">—</output>
+              <span class="calc">×2</span>
+              <button type="button" class="clear" data-clear="D">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- E -->
+        <fieldset class="metric" data-metric="E" data-weight="3" style="--c:var(--w3); --c-soft:var(--w3-soft)">
+          <legend>E. Stability of results — weighted ×3</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">E</span>
+              <span class="t">Stability of results</span>
+              <span class="w">×3 Critical</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-E" value="0"><span class="n">0</span>Major control fluctuations leading to failure or DuBois program performance review from customer.</label>
+            <label class="opt"><input type="radio" name="score-E" value="1"><span class="n">1</span>Control fluctuations are concerning. &gt;85% in range.</label>
+            <label class="opt"><input type="radio" name="score-E" value="2"><span class="n">2</span>Program is generally in control with minor fluctuations. &gt;90% in range.</label>
+            <label class="opt"><input type="radio" name="score-E" value="3"><span class="n">3</span>&gt;95% in range</label>
+            <div class="m-score">
+              <output class="pts" for="score-E">—</output>
+              <span class="calc">×3</span>
+              <button type="button" class="clear" data-clear="E">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- F -->
+        <fieldset class="metric" data-metric="F" data-weight="1" style="--c:var(--w1); --c-soft:var(--w1-soft)">
+          <legend>F. Cleanliness &amp; Branding of DuBois Equipment and Chemical Area — weighted ×1</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">F</span>
+              <span class="t">Cleanliness &amp; Branding of DuBois Equipment and Chemical Area</span>
+              <span class="w">×1 Important</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-F" value="0"><span class="n">0</span>Residue covered DD tanks/Drums. Pumps covered in chemical residue. Loose wires on controller or probes. Softener and controller covers either open or off. No DuBois, or competitor branding in place.</label>
+            <label class="opt"><input type="radio" name="score-F" value="1"><span class="n">1</span>Some tanks have dirt/residue or buildup. Board, probes or pumps have dirt/grime. Some wiring is loose. Some branding. Old DuBois, or previous DuBois entity branding.</label>
+            <label class="opt"><input type="radio" name="score-F" value="2"><span class="n">2</span>Tanks/drums and pumps are clean. Labels are clean and able to read clearly. Wiring is relatively neat. All branding is current. Most DuBois items on site have branding.</label>
+            <label class="opt"><input type="radio" name="score-F" value="3"><span class="n">3</span>All DuBois equipment and systems are clean. Pumps are clean. Wiring is very neat and is mostly in conduit. Controllers and softeners have clean covers in place. All branding is current and all DuBois systems/equipment on site have clean branding stickers.</label>
+            <div class="m-score">
+              <output class="pts" for="score-F">—</output>
+              <span class="calc">×1</span>
+              <button type="button" class="clear" data-clear="F">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- G -->
+        <fieldset class="metric" data-metric="G" data-weight="1" style="--c:var(--w1); --c-soft:var(--w1-soft)">
+          <legend>G. Relationships on Site — weighted ×1</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">G</span>
+              <span class="t">Relationships on Site</span>
+              <span class="w">×1 Important</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-G" value="0"><span class="n">0</span>No business reviews and no Technical Specialist visit.</label>
+            <label class="opt"><input type="radio" name="score-G" value="1"><span class="n">1</span>Business reviews are scarce, No Technical Specialist visit.</label>
+            <label class="opt"><input type="radio" name="score-G" value="2"><span class="n">2</span>Customer has received multiple business reviews. CI Opps have been presented, Customer has received a visit from a Technical Specialist. Existing relationships with decision makers.</label>
+            <label class="opt"><input type="radio" name="score-G" value="3"><span class="n">3</span>Customer has received multiple business reviews. CI Opps have been presented, Customer has received a visit from a Technical Specialist. Strong relationships with decision makers. At least two product lines.</label>
+            <div class="m-score">
+              <output class="pts" for="score-G">—</output>
+              <span class="calc">×1</span>
+              <button type="button" class="clear" data-clear="G">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- I -->
+        <fieldset class="metric" data-metric="I" data-weight="1" style="--c:var(--w1); --c-soft:var(--w1-soft)">
+          <legend>I. Completion of Service Promise — weighted ×1</legend>
+          <div class="mrow">
+            <div class="m-name">
+              <span class="id">I</span>
+              <span class="t">Completion of Service Promise</span>
+              <span class="w">×1 Important</span>
+            </div>
+            <label class="opt"><input type="radio" name="score-I" value="0"><span class="n">0</span>2 or more Service visits missed</label>
+            <label class="opt"><input type="radio" name="score-I" value="1"><span class="n">1</span>1 Service visit missed</label>
+            <label class="opt"><input type="radio" name="score-I" value="2"><span class="n">2</span>100% Service Promise Completed</label>
+            <label class="opt"><input type="radio" name="score-I" value="3"><span class="n">3</span>100% Service Promise Completed. Multiple revisits and reports.</label>
+            <div class="m-score">
+              <output class="pts" for="score-I">—</output>
+              <span class="calc">×1</span>
+              <button type="button" class="clear" data-clear="I">clear</button>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="mfoot">
+          <div class="lbl">Total weighted score <span style="font-family:var(--mono);font-weight:500;letter-spacing:0;text-transform:none;margin-left:6px;">(max 45)</span></div>
+          <div class="val" id="footTotal">0</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Detailed summary ===== -->
+  <section aria-labelledby="notes-h" class="page-break">
+    <div class="sec-head">
+      <h2 id="notes-h">Detailed Summary</h2>
+      <span class="note no-print">What you observed, and what drove each score.</span>
+    </div>
+    <div class="notes">
+      <div class="note-block" style="--c:var(--w2)">
+        <label for="n-A"><span class="id">A</span> Dosing, Metering and Treatment Equipment</label>
+        <textarea id="n-A" name="notes-A" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block" style="--c:var(--w2)">
+        <label for="n-B"><span class="id">B</span> Program Automation</label>
+        <textarea id="n-B" name="notes-B" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block" style="--c:var(--w3)">
+        <label for="n-C"><span class="id">C</span> Chemical Handling &amp; Safety</label>
+        <textarea id="n-C" name="notes-C" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block" style="--c:var(--w2)">
+        <label for="n-D"><span class="id">D</span> On-site Engagement in the program</label>
+        <textarea id="n-D" name="notes-D" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block" style="--c:var(--w3)">
+        <label for="n-E"><span class="id">E</span> Stability of results</label>
+        <textarea id="n-E" name="notes-E" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block" style="--c:var(--w1)">
+        <label for="n-F"><span class="id">F</span> Cleanliness &amp; Branding of DuBois Equipment and Chemical Area</label>
+        <textarea id="n-F" name="notes-F" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block" style="--c:var(--w1)">
+        <label for="n-G"><span class="id">G</span> Relationships on Site</label>
+        <textarea id="n-G" name="notes-G" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block" style="--c:var(--w1)">
+        <label for="n-I"><span class="id">I</span> Completion of Service Promise</label>
+        <textarea id="n-I" name="notes-I" rows="3" placeholder="Observations…"></textarea>
+      </div>
+      <div class="note-block recommend">
+        <label for="n-REC">Recommendations</label>
+        <textarea id="n-REC" name="notes-REC" rows="4" placeholder="Next steps, owners and dates…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Recommended actions ===== -->
+  <section aria-labelledby="actions-h">
+    <div class="sec-head">
+      <h2 id="actions-h">Recommended Actions</h2>
+      <span class="note">The tier matching this scorecard's total is highlighted. Scores that fall on a boundary count toward the higher tier.</span>
+    </div>
+    <div class="tiers">
+
+      <article class="tier" data-tier="1" style="--c:var(--w3)">
+        <div class="tier-h">
+          <h3>Tier 1</h3><span class="range">&lt;15 points</span><span class="you">This audit</span>
+        </div>
+        <ul>
+          <li>Site visit with Technical Specialist as soon as possible.</li>
+          <li>Involvement of Sales and Service Regional Managers.</li>
+          <li>Initiate immediate cleaning and branding.</li>
+          <li>Address key issues that could affect the stability of results. Managers will support solving result stability issues and technical problems.</li>
+          <li>Engage in a Business Review with the customer and Sales personnel.</li>
+          <li>Propose the recommended automation, dosing and pre-treatment equipment at Business Review.</li>
+          <li>Involve Sales Rep immediately if there is a problem with the breadth or depth of relationships on site.</li>
+        </ul>
+      </article>
+
+      <article class="tier" data-tier="2" style="--c:var(--w2)">
+        <div class="tier-h">
+          <h3>Tier 2</h3><span class="range">15–25 points</span><span class="you">This audit</span>
+        </div>
+        <ul>
+          <li>Site visit should be scheduled with Technical Specialist if it has been more than 6 months since the previous visit.</li>
+          <li>A Business Review should be scheduled if it has been more than 6 months since the last.</li>
+          <li>Cleaning and Branding should be completed within the month.</li>
+          <li>Propose recommended automation, dosing and pre-treatment equipment at Business Review.</li>
+        </ul>
+      </article>
+
+      <article class="tier" data-tier="3" style="--c:var(--accent)">
+        <div class="tier-h">
+          <h3>Tier 3</h3><span class="range">25–35 points</span><span class="you">This audit</span>
+        </div>
+        <ul>
+          <li>Initiate a targeted response to address the specific metrics that are reducing the customer score.</li>
+          <li>Maintain the metrics that are in current good standing.</li>
+        </ul>
+      </article>
+
+      <article class="tier" data-tier="4" style="--c:var(--good)">
+        <div class="tier-h">
+          <h3>Tier 4</h3><span class="range">35–45 points</span><span class="you">This audit</span>
+        </div>
+        <ul>
+          <li>No immediate action is required. Proceed with the good work servicing the account.</li>
+          <li>Continue looking for improvement opportunities and additional product lines that DuBois can support.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <footer class="doc-foot">
+    <span class="brand">DuBois Chemicals — Technical Scorecard</span>
+    <span>Shading indicates priority weighting: Critical ×3, Very Important ×2, Important ×1.</span>
+    <span class="autosave no-print" id="autosave">Draft saved in this browser</span>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var IDS = ["A", "B", "C", "D", "E", "F", "G", "I"];
+  var WEIGHT = { A: 2, B: 2, C: 3, D: 2, E: 3, F: 1, G: 1, I: 1 };
+  var MAX = 45;                       // 15 weight units × 3 points
+  var STORE_KEY = "dubois-technical-scorecard-v1";
+
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  var totalNum = $("#totalNum");
+  var footTotal = $("#footTotal");
+  var meterFill = $("#meterFill");
+  var tierChip = $("#tierChip");
+  var progressNote = $("#progressNote");
+  var summary = $("#summary");
+  var notice = $("#sampleNotice");
+
+  var TIERS = [
+    { n: 1, label: "Tier 1", range: "<15",   color: "var(--w3)",     soft: "var(--w3-soft)" },
+    { n: 2, label: "Tier 2", range: "15–25", color: "var(--w2)",     soft: "var(--w2-soft)" },
+    { n: 3, label: "Tier 3", range: "25–35", color: "var(--accent)", soft: "var(--accent-soft)" },
+    { n: 4, label: "Tier 4", range: "35–45", color: "var(--good)",   soft: "var(--good-soft)" }
+  ];
+
+  function tierFor(total) {
+    if (total < 15) return TIERS[0];
+    if (total < 25) return TIERS[1];
+    if (total < 35) return TIERS[2];
+    return TIERS[3];
+  }
+
+  function selectedScore(id) {
+    var el = document.querySelector('input[name="score-' + id + '"]:checked');
+    return el ? parseInt(el.value, 10) : null;
+  }
+
+  /* ---------- the calculation: (A×2)+(B×2)+(C×3)+(D×2)+(E×3)+F+G+I ---------- */
+  function recalc() {
+    var total = 0;
+    var scored = 0;
+
+    IDS.forEach(function (id) {
+      var field = document.querySelector('.metric[data-metric="' + id + '"]');
+      var score = selectedScore(id);
+      var w = WEIGHT[id];
+      var pts = $(".pts", field);
+      var calc = $(".calc", field);
+
+      $$(".opt", field).forEach(function (opt) {
+        opt.classList.toggle("is-checked", $("input", opt).checked);
+      });
+
+      if (score === null) {
+        field.classList.remove("is-scored");
+        pts.textContent = "—";
+        calc.textContent = "×" + w;
+      } else {
+        field.classList.add("is-scored");
+        scored += 1;
+        total += score * w;
+        pts.textContent = String(score * w);
+        calc.textContent = score + " × " + w;
+      }
+    });
+
+    var tier = tierFor(total);
+
+    totalNum.textContent = String(total);
+    footTotal.textContent = String(total);
+    meterFill.style.width = (total / MAX * 100) + "%";
+    summary.style.setProperty("--tier-color", tier.color);
+    summary.style.setProperty("--tier-soft", tier.soft);
+    tierChip.innerHTML = tier.label + ' <span class="range">' + tier.range + "</span>";
+
+    progressNote.textContent = scored === 8
+      ? "All 8 metrics scored"
+      : scored + " of 8 metrics scored";
+
+    $$(".tier").forEach(function (el) {
+      el.classList.toggle("is-active", parseInt(el.dataset.tier, 10) === tier.n);
+    });
+  }
+
+  /* ---------- textareas grow so nothing is clipped on screen or in the PDF ---------- */
+  function grow(el) {
+    el.style.height = "auto";
+    el.style.height = (el.scrollHeight + 2) + "px";
+  }
+  function growAll() { $$("textarea").forEach(grow); }
+
+  /* ---------- draft persistence (this browser only) ---------- */
+  function collect() {
+    var data = { scores: {}, text: {}, sample: notice.classList.contains("is-on") };
+    IDS.forEach(function (id) { data.scores[id] = selectedScore(id); });
+    $$("input[type=text], input[type=date], textarea").forEach(function (el) {
+      data.text[el.id] = el.value;
+    });
+    return data;
+  }
+
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(collect())); } catch (e) { /* private mode */ }
+  }
+
+  function restore() {
+    var raw = null;
+    try { raw = localStorage.getItem(STORE_KEY); } catch (e) { return; }
+    if (!raw) return;
+    var data;
+    try { data = JSON.parse(raw); } catch (e) { return; }
+    if (!data) return;
+
+    IDS.forEach(function (id) {
+      var v = data.scores && data.scores[id];
+      if (v === null || v === undefined) return;
+      var el = document.querySelector('input[name="score-' + id + '"][value="' + v + '"]');
+      if (el) el.checked = true;
+    });
+    Object.keys(data.text || {}).forEach(function (key) {
+      var el = document.getElementById(key);
+      if (el) el.value = data.text[key];
+    });
+    notice.classList.toggle("is-on", !!data.sample);
+  }
+
+  function apply(values) {
+    IDS.forEach(function (id) {
+      var el = document.querySelector('input[name="score-' + id + '"][value="' + values.scores[id] + '"]');
+      if (el) el.checked = true;
+    });
+    Object.keys(values.text).forEach(function (key) {
+      var el = document.getElementById(key);
+      if (el) el.value = values.text[key];
+    });
+  }
+
+  function clearAll() {
+    $$('input[type="radio"]').forEach(function (el) { el.checked = false; });
+    $$("input[type=text], input[type=date], textarea").forEach(function (el) { el.value = ""; });
+    notice.classList.remove("is-on");
+    try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }
+    growAll();
+    recalc();
+  }
+
+  /* ---------- sample audit, for showing the sheet working ---------- */
+  var SAMPLE = {
+    scores: { A: 2, B: 1, C: 3, D: 2, E: 2, F: 1, G: 2, I: 3 },
+    text: {
+      "f-customer": "Ridgeline Foods — Plant 4 (cooling tower & boiler house)",
+      "f-date": new Date().toISOString().slice(0, 10),
+      "f-attendees": "M. Okafor (Plant Engineer), J. Reyes (Maintenance Lead)",
+      "f-rep": "Sample — replace with your name",
+      "n-A": "Softeners and automated bleed/blowdown in place and correctly sized; no PTSA tracing on the tower and no redundancy on the boiler feed pump.",
+      "n-B": "Tower bleed still runs on a timer. Controllers are local-display only — no datalogging, so between visits we are blind.",
+      "n-C": "Demand Delivery in place on both product lines. Containment intact, no residue in the chemical area.",
+      "n-D": "Logbook entries are daily but stop during weekend shifts. Second shift is not testing.",
+      "n-E": "Conductivity held in range roughly 91% of logged readings; two excursions traced to the timer-based bleed.",
+      "n-F": "Pump heads have chemical grime and two probe leads are loose. Branding is previous-entity on the tower panel.",
+      "n-G": "Two business reviews in the last 12 months and a Technical Specialist visit in March. Relationships solid with maintenance, thin above plant-engineer level.",
+      "n-I": "All scheduled service visits completed, plus two revisits with written reports.",
+      "n-REC": "1) Quote load-proportional control with web datalogging for the tower — takes B and E up together. 2) Clean and re-brand pump station and tower panel this month. 3) Schedule Business Review with the plant manager to open the relationship above maintenance."
+    }
+  };
+
+  /* ---------- export ---------- */
+  function exportPdf() {
+    var customer = ($("#f-customer").value || "").trim();
+    var date = ($("#f-date").value || "").trim();
+    var original = document.title;
+    var name = ["Technical Scorecard", customer, date].filter(Boolean).join(" — ");
+
+    growAll();
+    try { document.title = name.replace(/[\\/:*?"<>|]/g, "-"); } catch (e) { /* ignore */ }
+    window.addEventListener("afterprint", function restoreTitle() {
+      document.title = original;
+      window.removeEventListener("afterprint", restoreTitle);
+    });
+    window.print();
+  }
+
+  /* ---------- wiring ---------- */
+  document.addEventListener("change", function (e) {
+    if (e.target.matches('input[type="radio"]')) recalc();
+    save();
+  });
+
+  document.addEventListener("input", function (e) {
+    if (e.target.tagName === "TEXTAREA") grow(e.target);
+    save();
+  });
+
+  document.addEventListener("click", function (e) {
+    var clearBtn = e.target.closest("[data-clear]");
+    if (clearBtn) {
+      var id = clearBtn.getAttribute("data-clear");
+      $$('input[name="score-' + id + '"]').forEach(function (el) { el.checked = false; });
+      recalc();
+      save();
+    }
+  });
+
+  $("#pdfBtn").addEventListener("click", exportPdf);
+
+  $("#sampleBtn").addEventListener("click", function () {
+    apply(SAMPLE);
+    notice.classList.add("is-on");
+    growAll();
+    recalc();
+    save();
+  });
+
+  $("#clearBtn").addEventListener("click", function () {
+    if (confirm("Clear every field on this scorecard?")) clearAll();
+  });
+
+  $("#noticeClear").addEventListener("click", clearAll);
+
+  window.addEventListener("beforeprint", growAll);
+
+  restore();
+  growAll();
+  recalc();
+})();
+</script>
+
+</body>
+</html>
