@@ -211,7 +211,37 @@ h1 .subtitle{
   align-items:flex-end;
   gap:7px;
 }
-.action-row{ display:flex; gap:8px; flex-wrap:wrap; }
+.action-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:stretch; }
+
+/* ---------- theme switch ---------- */
+.seg{
+  display:inline-flex;
+  border:1px solid var(--line-strong);
+  border-radius:3px;
+  overflow:hidden;
+  background:var(--surface);
+}
+.seg button{
+  font-family:var(--cond);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:13px;
+  padding:9px 12px;
+  border:0;
+  border-left:1px solid var(--line);
+  background:transparent;
+  color:var(--ink-3);
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.seg button:first-child{ border-left:0; }
+.seg button:hover{ background:var(--surface-3); color:var(--ink); }
+.seg button[aria-pressed="true"]{
+  background:var(--accent-soft);
+  color:var(--accent);
+}
+.seg button:focus-visible{ outline-offset:-2px; }
 
 /* ---------- buttons ---------- */
 button{ font:inherit; }
@@ -247,29 +277,6 @@ button{ font:inherit; }
   outline:2px solid var(--focus);
   outline-offset:2px;
   border-radius:2px;
-}
-
-/* ---------- notice ---------- */
-.notice{
-  display:none;
-  align-items:center;
-  gap:12px;
-  margin-top:18px;
-  padding:10px 14px;
-  border:1px solid var(--w2);
-  border-left-width:4px;
-  background:var(--w2-soft);
-  color:var(--ink);
-  font-size:14px;
-  border-radius:3px;
-}
-.notice.is-on{ display:flex; }
-.notice strong{ font-weight:600; }
-.notice button{
-  margin-left:auto;
-  border:0; background:none; cursor:pointer;
-  color:var(--ink-2); font-size:13px; text-decoration:underline;
-  padding:2px 4px;
 }
 
 /* ---------- section shell ---------- */
@@ -924,7 +931,7 @@ section{ margin-top:34px; }
   *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
 
   .wrap{ max-width:none; padding:0; }
-  .no-print, .masthead-actions, .notice, .hint, .m-score .clear, .autosave{ display:none !important; }
+  .no-print, .masthead-actions, .hint, .m-score .clear, .autosave{ display:none !important; }
   .print-only{ display:block; }
 
   .masthead{ border-bottom:1.5pt solid #000; background:none; }
@@ -1013,6 +1020,15 @@ section{ margin-top:34px; }
   .doc-foot{ margin-top:10pt; padding-top:5pt; font-size:7.4pt; border-top:.75pt solid #9aa4ac; }
 }
 </style>
+<script>
+/* Applied before first paint so an explicit theme choice never flashes. */
+(function () {
+  try {
+    var t = localStorage.getItem("dubois-scorecard-theme");
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) { /* storage unavailable */ }
+})();
+</script>
 </head>
 <body>
 
@@ -1026,7 +1042,11 @@ section{ margin-top:34px; }
     </div>
     <div class="masthead-actions no-print">
       <div class="action-row">
-        <button type="button" class="btn" id="sampleBtn">Fill sample data</button>
+        <div class="seg" role="group" aria-label="Color theme">
+          <button type="button" data-theme-set="auto">Auto</button>
+          <button type="button" data-theme-set="light">Light</button>
+          <button type="button" data-theme-set="dark">Dark</button>
+        </div>
         <button type="button" class="btn" id="clearBtn">Clear form</button>
         <button type="button" class="btn btn-primary" id="pdfBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1043,11 +1063,6 @@ section{ margin-top:34px; }
 </header>
 
 <div class="wrap">
-
-  <div class="notice no-print" id="sampleNotice" role="status">
-    <span><strong>Sample data loaded.</strong> Clear the form before recording a real site audit.</span>
-    <button type="button" id="noticeClear">Clear it now</button>
-  </div>
 
   <!-- ===== Audit header ===== -->
   <section aria-labelledby="visit-h" style="margin-top:26px;">
@@ -1423,6 +1438,7 @@ section{ margin-top:34px; }
   var WEIGHT = { A: 2, B: 2, C: 3, D: 2, E: 3, F: 1, G: 1, I: 1 };
   var MAX = 45;                       // 15 weight units × 3 points
   var STORE_KEY = "dubois-technical-scorecard-v1";
+  var THEME_KEY = "dubois-scorecard-theme";
 
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
@@ -1433,7 +1449,6 @@ section{ margin-top:34px; }
   var tierChip = $("#tierChip");
   var progressNote = $("#progressNote");
   var summary = $("#summary");
-  var notice = $("#sampleNotice");
 
   var TIERS = [
     { n: 1, label: "Tier 1", range: "<15",   color: "var(--w3)",     soft: "var(--w3-soft)" },
@@ -1510,7 +1525,7 @@ section{ margin-top:34px; }
 
   /* ---------- draft persistence (this browser only) ---------- */
   function collect() {
-    var data = { scores: {}, text: {}, sample: notice.classList.contains("is-on") };
+    var data = { scores: {}, text: {} };
     IDS.forEach(function (id) { data.scores[id] = selectedScore(id); });
     $$("input[type=text], input[type=date], textarea").forEach(function (el) {
       data.text[el.id] = el.value;
@@ -1540,48 +1555,15 @@ section{ margin-top:34px; }
       var el = document.getElementById(key);
       if (el) el.value = data.text[key];
     });
-    notice.classList.toggle("is-on", !!data.sample);
-  }
-
-  function apply(values) {
-    IDS.forEach(function (id) {
-      var el = document.querySelector('input[name="score-' + id + '"][value="' + values.scores[id] + '"]');
-      if (el) el.checked = true;
-    });
-    Object.keys(values.text).forEach(function (key) {
-      var el = document.getElementById(key);
-      if (el) el.value = values.text[key];
-    });
   }
 
   function clearAll() {
     $$('input[type="radio"]').forEach(function (el) { el.checked = false; });
     $$("input[type=text], input[type=date], textarea").forEach(function (el) { el.value = ""; });
-    notice.classList.remove("is-on");
     try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }
     growAll();
     recalc();
   }
-
-  /* ---------- sample audit, for showing the sheet working ---------- */
-  var SAMPLE = {
-    scores: { A: 2, B: 1, C: 3, D: 2, E: 2, F: 1, G: 2, I: 3 },
-    text: {
-      "f-customer": "Ridgeline Foods — Plant 4 (cooling tower & boiler house)",
-      "f-date": new Date().toISOString().slice(0, 10),
-      "f-attendees": "M. Okafor (Plant Engineer), J. Reyes (Maintenance Lead)",
-      "f-rep": "Sample — replace with your name",
-      "n-A": "Softeners and automated bleed/blowdown in place and correctly sized; no PTSA tracing on the tower and no redundancy on the boiler feed pump.",
-      "n-B": "Tower bleed still runs on a timer. Controllers are local-display only — no datalogging, so between visits we are blind.",
-      "n-C": "Demand Delivery in place on both product lines. Containment intact, no residue in the chemical area.",
-      "n-D": "Logbook entries are daily but stop during weekend shifts. Second shift is not testing.",
-      "n-E": "Conductivity held in range roughly 91% of logged readings; two excursions traced to the timer-based bleed.",
-      "n-F": "Pump heads have chemical grime and two probe leads are loose. Branding is previous-entity on the tower panel.",
-      "n-G": "Two business reviews in the last 12 months and a Technical Specialist visit in March. Relationships solid with maintenance, thin above plant-engineer level.",
-      "n-I": "All scheduled service visits completed, plus two revisits with written reports.",
-      "n-REC": "1) Quote load-proportional control with web datalogging for the tower — takes B and E up together. 2) Clean and re-brand pump station and tower panel this month. 3) Schedule Business Review with the plant manager to open the relationship above maintenance."
-    }
-  };
 
   /* ---------- export ---------- */
   function exportPdf() {
@@ -1630,22 +1612,37 @@ section{ margin-top:34px; }
     ownTab.hidden = false;
   }
 
-  $("#sampleBtn").addEventListener("click", function () {
-    apply(SAMPLE);
-    notice.classList.add("is-on");
-    growAll();
-    recalc();
-    save();
-  });
-
   $("#clearBtn").addEventListener("click", function () {
     if (confirm("Clear every field on this scorecard?")) clearAll();
   });
 
-  $("#noticeClear").addEventListener("click", clearAll);
+  /* ---------- light / dark, kept apart from the audit draft ---------- */
+  function syncTheme() {
+    var current = document.documentElement.getAttribute("data-theme") || "auto";
+    $$("[data-theme-set]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-theme-set") === current));
+    });
+  }
+
+  $$("[data-theme-set]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var mode = b.getAttribute("data-theme-set");
+      if (mode === "auto") {
+        document.documentElement.removeAttribute("data-theme");
+      } else {
+        document.documentElement.setAttribute("data-theme", mode);
+      }
+      try {
+        if (mode === "auto") localStorage.removeItem(THEME_KEY);
+        else localStorage.setItem(THEME_KEY, mode);
+      } catch (e) { /* storage unavailable */ }
+      syncTheme();
+    });
+  });
 
   window.addEventListener("beforeprint", growAll);
 
+  syncTheme();
   restore();
   growAll();
   recalc();

@@ -22,6 +22,10 @@ browser, no server or build step.
 - **Export to PDF** — opens the browser print dialog; choose *Save as PDF*.
   The print stylesheet lays the sheet out for portrait US Letter.
 
+- **Theme** — *Auto / Light / Dark*. Auto follows the operating system;
+  an explicit choice overrides it and is remembered per device. The PDF is
+  always laid out light-on-white whatever the screen theme.
+
 A draft is kept in the browser's local storage, so a part-finished audit
-survives a refresh. *Clear form* wipes it. *Fill sample data* loads an example
-audit for demos — clear it before recording a real visit.
+survives a refresh. *Clear form* wipes it; the theme choice is stored
+separately and survives it.
