@@ -20,7 +20,8 @@ browser, no server or build step.
   Boundary scores count toward the higher tier.
 - **Detailed Summary** — free-text notes per metric plus overall recommendations.
 - **Export to PDF** — opens the browser print dialog; choose *Save as PDF*.
-  The print stylesheet lays the sheet out for portrait US Letter.
+  The print stylesheet lays the sheet out for portrait US Letter, and starts
+  the Detailed Summary and Recommended Actions each on a fresh page.
 
 - **Theme** — *Auto / Light / Dark*. Auto follows the operating system;
   an explicit choice overrides it and is remembered per device. The PDF is
